@@ -1,20 +1,16 @@
-import React, { Component } from 'react';
-import { Header } from './components';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
-import Loadable from 'react-loadable';
-import { connect } from 'react-redux';
-import { fetchFavoris } from './store/actions';
+import React, { Component, lazy, Suspense } from "react";
+import { Header } from "./components";
+import { Route, Switch, Redirect, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { fetchFavoris } from "./store/actions";
 
-const LazyFilms = Loadable({
-  loader: () => import(/* webpackChunkName: 'films' */'./features/films'),
-  loading: () => <h1>Loading ...</h1>
-});
+const LazyFilms = lazy(() =>
+  import(/* webpackChunkName: 'films' */ "./features/films")
+);
 
-const LazyFavoris = Loadable({
-  loader: () => import(/* webpackChunkName: 'favoris' */'./features/favoris'),
-  loading: () => <h1>Loading ...</h1>
-})
-
+const LazyFavoris = lazy(() =>
+  import(/* webpackChunkName: 'favoris' */ "./features/favoris")
+);
 
 class App extends Component {
   componentDidMount() {
@@ -25,16 +21,20 @@ class App extends Component {
     return (
       <div className="App d-flex flex-column">
         <Header />
-        <Switch>
-          <Route path="/films" component={ LazyFilms } />
-          <Route path="/favoris" component={ LazyFavoris }/>
-          <Redirect to="/films" />
-        </Switch>
+        <Suspense fallback={<h1>Chargement...</h1>}>
+          <Switch>
+            <Route path="/films" component={LazyFilms} />
+            <Route path="/favoris" component={LazyFavoris} />
+            <Redirect to="/films" />
+          </Switch>
+        </Suspense>
       </div>
     );
   }
 }
 
-export default withRouter(connect(null, {
-  fetchFavoris
-})(App));
+export default withRouter(
+  connect(null, {
+    fetchFavoris
+  })(App)
+);
