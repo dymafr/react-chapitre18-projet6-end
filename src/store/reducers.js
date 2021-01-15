@@ -1,7 +1,8 @@
-import movies from "./movies/movies.reducers";
-import favoris from "./favoris/favoris.reducers";
+import movies from './movies/movies.reducers';
+import favoris from './favoris/favoris.reducers';
 
-export default {
+const Reducers = {
   movies,
-  favoris
+  favoris,
 };
+export default Reducers;

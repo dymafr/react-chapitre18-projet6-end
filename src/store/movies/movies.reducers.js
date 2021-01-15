@@ -1,42 +1,45 @@
 import * as actions from './movies.actions';
 
-
-export default (state = {
-  data: [],
-  isLoading: false,
-  error: null,
-  selectedMovie: 0
-}, action) => {
-  switch(action.type) {
+const MovieReducer = (
+  state = {
+    data: [],
+    isLoading: false,
+    error: null,
+    selectedMovie: 0,
+  },
+  action
+) => {
+  switch (action.type) {
     case actions.REQUEST_MOVIES: {
       return {
         ...state,
-        isLoading: true
-      }
+        isLoading: true,
+      };
     }
     case actions.FETCH_MOVIES_SUCCESS: {
       return {
         ...state,
         isLoading: false,
         error: null,
-        data: [ ...action.movies ]
-      }
+        data: [...action.movies],
+      };
     }
     case actions.FETCH_MOVIES_ERROR: {
       return {
         ...state,
         isLoading: false,
-        error: action.error
-      }
+        error: action.error,
+      };
     }
     case actions.SET_SELECTED_MOVIE: {
       return {
         ...state,
-        selectedMovie: action.index
-      }
+        selectedMovie: action.index,
+      };
     }
     default: {
-      return state
+      return state;
     }
   }
-}
+};
+export default MovieReducer;
