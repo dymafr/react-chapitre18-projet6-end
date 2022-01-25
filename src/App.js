@@ -1,20 +1,21 @@
-import React, { Component, lazy, Suspense } from "react";
-import { Header } from "./components";
-import { Route, Switch, Redirect, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { fetchFavoris } from "./store/actions";
+import React, { Component, lazy, Suspense } from 'react';
+import { Header } from './components';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchFavoris, discoverMovies } from './store/actions';
 
 const LazyFilms = lazy(() =>
-  import(/* webpackChunkName: 'films' */ "./features/films")
+  import(/* webpackChunkName: 'films' */ './features/films'),
 );
 
 const LazyFavoris = lazy(() =>
-  import(/* webpackChunkName: 'favoris' */ "./features/favoris")
+  import(/* webpackChunkName: 'favoris' */ './features/favoris'),
 );
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchFavoris();
+    this.props.discoverMovies();
   }
 
   render() {
@@ -35,6 +36,7 @@ class App extends Component {
 
 export default withRouter(
   connect(null, {
-    fetchFavoris
-  })(App)
+    fetchFavoris,
+    discoverMovies,
+  })(App),
 );

@@ -27,5 +27,11 @@ const ApiMovie = {
       .then(response => response.data.results)
       .then(moviesApi => moviesApi.filter(m => m.poster_path).map(apiMovieMap));
   },
+  discoverMovies: () => {
+    return apiMovie
+      .get('/discover/movie')
+      .then(response => response.data.results)
+      .then(moviesApi => moviesApi.filter(m => m.poster_path).map(apiMovieMap));
+  },
 };
 export default ApiMovie;

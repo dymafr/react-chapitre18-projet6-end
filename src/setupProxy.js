@@ -1,11 +1,18 @@
-const { createProxyMiddleware } = require("http-proxy-middleware");
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
-module.exports = function(app) {
+module.exports = function (app) {
   app.use(
-    "/search",
+    '/search',
     createProxyMiddleware({
-      target: "https://api.themoviedb.org/4",
-      changeOrigin: true
-    })
+      target: 'https://api.themoviedb.org/4',
+      changeOrigin: true,
+    }),
+  );
+  app.use(
+    '/discover',
+    createProxyMiddleware({
+      target: 'https://api.themoviedb.org/4',
+      changeOrigin: true,
+    }),
   );
 };

@@ -1,11 +1,7 @@
-import React, { Component } from "react";
-import { Formik } from "formik";
+import React, { Component } from 'react';
+import { Formik } from 'formik';
 
 export default class SearchBar extends Component {
-  componentDidMount() {
-    this.submit({ query: "harry potter", language: "fr-FR" });
-  }
-
   submit = values => {
     this.props.fetchMovies(values);
   };
@@ -14,7 +10,7 @@ export default class SearchBar extends Component {
     return (
       <Formik
         onSubmit={this.submit}
-        initialValues={{ query: "harry potter", language: "fr-FR" }}
+        initialValues={{ query: '', language: 'fr-FR' }}
       >
         {({ values, handleSubmit, handleChange, handleBlur, isSubmitting }) => (
           <form className="d-flex flex-row p-2 m-2" onSubmit={handleSubmit}>
